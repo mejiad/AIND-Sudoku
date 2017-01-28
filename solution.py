@@ -12,7 +12,6 @@ diags = [['A1', 'B2', 'C3', 'D4', 'E5', 'F6', 'G7', 'H8', 'I9'],
 ['A9', 'B8', 'C7', 'D6', 'E5', 'F4', 'G3', 'H2', 'I1']]
 
 row_units = [cross(r, cols) for r in rows]
-print("Unit list: ", row_units)
 column_units = [cross(rows, c) for c in cols]
 square_units = [cross(rs, cs) for rs in ('ABC','DEF','GHI') for cs in ('123','456','789')]
 unitlist = row_units + column_units + square_units + diags
@@ -40,7 +39,6 @@ def naked_twins(values):
     """
     
     # Find all instances of naked twins
-    print("NAKED TWINS")
     for unit in unitlist:
         repetidos = {}
         # dame los que son mayor de 1 
@@ -50,10 +48,8 @@ def naked_twins(values):
             del sub[k0]
             repetidos = {k2: v2 for k2, v2 in sub.items() if sub[k2] == val}
             repetidos[k0] = val
-            print("Twins 01 !", repetidos) 
 
             if ( len(repetidos) == 2):   # ya lo tenemos
-                print("Hay twins!", repetidos) 
                 # en el unit hay que borra cada caracter de los twins, menos de los twins
                 for peer in unit:
                     if not peer in repetidos.keys():
@@ -148,13 +144,9 @@ def reduce_puzzle(values):
 
 
 
-# {k: v for k, v in rvalues.items() if len(rvalues[k]) > 1}
-# min(rvalues, key=lambda i: rvalues[i]) 
-
 def search(values):
     "Using depth-first search and propagation, create a search tree and solve the sudoku."
     # First, reduce the puzzle using the previous function
-    print("Search")
     values = reduce_puzzle(values)
     if values is False:
         return False
@@ -172,7 +164,6 @@ def search(values):
     # Now use recursion to solve each one of the resulting sudokus, and if one returns a value (not False), return that answer!
 
     for dig in str:
-        print("search")
         valuesBack = values.copy()
         assign_value(valuesBack, idx, dig)
         # valuesBack[idx] = dig 
@@ -196,7 +187,6 @@ def solve(grid):
     """
     values = grid_values(grid)
     res = search(values)
-    print("Salio de SEARCH")
     return res
 
 if __name__ == '__main__':
